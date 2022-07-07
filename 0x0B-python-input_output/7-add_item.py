@@ -1,27 +1,13 @@
 #!/usr/bin/python3
-"""
-Module 9-add_item
-Contains function that adds and saves to Python obj to JSON file; loads objects
-# run with ./9-add_item.py
-#
-# cat add_item.json ; echo ""
-# expect output: []
-#
-# ./9-add_item.py some random args
-# cat add_item.json ; echo ""
-# expect output: ["some", "random", "args"]
-"""
+""" Module """
+import sys
+from os import path
 
 
-from sys import argv
 save_to_json_file = __import__('5-save_to_json_file').save_to_json_file
 load_from_json_file = __import__('6-load_from_json_file').load_from_json_file
 
-filename = "add_item.json"
-
-try:
-    existing_content = load_from_json_file(filename)
-except FileNotFoundError:
-    existing_content = []
-
-save_to_json_file(existing_content + argv[1:], filename)
+new_list = []
+if path.isfile("add_item.json"):
+    new_list = load_from_json_file("add_item.json")
+save_to_json_file(new_list + sys.argv[1:], "add_item.json")
